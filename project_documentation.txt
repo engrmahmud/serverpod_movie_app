@@ -1,0 +1,9 @@
+Repository:
+  - Handles Failure
+  - Converts exceptions
+  - Returns Either
+
+DataSource:
+  - Calls API
+  - Throws exception
+  - Knows Serverpod

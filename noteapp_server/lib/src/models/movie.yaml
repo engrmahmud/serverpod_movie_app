@@ -1,0 +1,13 @@
+
+
+class: Movie
+table: movie
+
+fields:
+  title: String
+  desc: String
+  year: int
+  imagUrl: String
+  logline: String
+  directorname: String
+
