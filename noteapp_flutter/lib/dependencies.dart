@@ -6,7 +6,9 @@ import 'package:noteapp_flutter/features/movie/data/datasources/movie_datasource
 import 'package:noteapp_flutter/features/movie/data/repositories/movie_repository_impl.dart';
 import 'package:noteapp_flutter/features/movie/domain/repositories/movie_repository.dart';
 import 'package:noteapp_flutter/features/movie/domain/usecases/list_movies.dart';
+import 'package:noteapp_flutter/features/movie/domain/usecases/retrieve_movies.dart';
 import 'package:noteapp_flutter/features/movie/presentation/bloc/movie_list/movie_list_bloc.dart';
+import 'package:noteapp_flutter/features/movie/presentation/bloc/movie_retrieve/movie_retrieve_bloc.dart';
 import 'package:serverpod_flutter/serverpod_flutter.dart';
 
 final serviceLocator = GetIt.instance;
@@ -58,8 +60,19 @@ Future<void> initDependencies() async {
       )
     );
 
+    serviceLocator.registerFactory<RetrieveMovieUsecase>(
+  () => RetrieveMovieUsecase(
+    serviceLocator<MovieRepository>()
+  )
+);
+
     //Bloc
     serviceLocator.registerLazySingleton(
       () => MovieListBloc(serviceLocator<ListMoviesUsecase>(),
         listMovies: serviceLocator<ListMoviesUsecase>()));
+
+    
+    serviceLocator.registerLazySingleton<MovieRetrieveBloc>(
+  () => MovieRetrieveBloc(serviceLocator<ListMoviesUsecase>(), retrieveMovie: 
+   serviceLocator<RetrieveMovieUsecase>()));
   }

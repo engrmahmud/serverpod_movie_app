@@ -2,7 +2,6 @@
 
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:noteapp_client/noteapp_client.dart';
 import 'package:noteapp_flutter/features/movie/domain/usecases/list_movies.dart';
 import 'package:noteapp_flutter/features/movie/domain/usecases/retrieve_movies.dart';
 import 'package:noteapp_flutter/features/movie/presentation/bloc/movie_retrieve/movie_retrieve_events.dart';

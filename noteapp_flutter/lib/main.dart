@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:noteapp_flutter/core/router/app_router.dart';
 import 'package:noteapp_flutter/dependencies.dart';
 import 'package:noteapp_flutter/features/movie/presentation/bloc/movie_list/movie_list_bloc.dart';
-import 'package:noteapp_flutter/features/movie/presentation/pages/movie_list_page.dart';
+import 'package:noteapp_flutter/features/movie/presentation/bloc/movie_retrieve/movie_retrieve_bloc.dart';
 
 
 
@@ -18,6 +18,7 @@ void main() async {
     MultiBlocProvider(
       providers: [
        BlocProvider(create: (_) => serviceLocator<MovieListBloc>(),),
+       BlocProvider(create: (_) => serviceLocator<MovieRetrieveBloc>(),),
       ],
       child: 
         const MyApp(),
