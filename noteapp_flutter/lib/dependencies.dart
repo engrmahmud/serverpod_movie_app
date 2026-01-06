@@ -30,9 +30,9 @@ Future<void> initDependencies() async {
     ..connectivityMonitor = FlutterConnectivityMonitor(),
 );
 
-
   
   _initMovie();
+
 }
 
 
@@ -54,25 +54,29 @@ Future<void> initDependencies() async {
     );
 
     //Usecase
+    //For List Movies
     serviceLocator.registerFactory<ListMoviesUsecase>(
       () => ListMoviesUsecase(
         serviceLocator<MovieRepository>()
       )
     );
-
+    // For Retrieve Movie
     serviceLocator.registerFactory<RetrieveMovieUsecase>(
-  () => RetrieveMovieUsecase(
-    serviceLocator<MovieRepository>()
-  )
-);
+      () => RetrieveMovieUsecase(
+        serviceLocator<MovieRepository>()
+       )
+    );
 
     //Bloc
     serviceLocator.registerLazySingleton(
-      () => MovieListBloc(serviceLocator<ListMoviesUsecase>(),
-        listMovies: serviceLocator<ListMoviesUsecase>()));
+      () => MovieListBloc(
+        listMovies: serviceLocator<ListMoviesUsecase>())
+    );
 
     
     serviceLocator.registerLazySingleton<MovieRetrieveBloc>(
-  () => MovieRetrieveBloc(serviceLocator<ListMoviesUsecase>(), retrieveMovie: 
-   serviceLocator<RetrieveMovieUsecase>()));
+      () => MovieRetrieveBloc(
+         retrieveMovie: serviceLocator<RetrieveMovieUsecase>())
+    );
+    
   }

@@ -10,7 +10,7 @@ class MovieDetailPage extends StatefulWidget {
 
   static String route ([int? movieId]) => '/movies/${movieId ?? ':id'}';
   final int movieId;
-
+  
   const MovieDetailPage({super.key, required this.movieId});
 
   @override
@@ -18,11 +18,12 @@ class MovieDetailPage extends StatefulWidget {
 }
 
 class _MovieDetailPageState extends State<MovieDetailPage> {
-
+ 
   @override
   void initState() {
-    context.read<MovieRetrieveBloc>().add(FetchMovieEvent(id: widget.movieId));
     super.initState();
+    context.read<MovieRetrieveBloc>().add(FetchMovieEvent(id: widget.movieId));
+    
   }
 
 
@@ -31,13 +32,14 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
     
     return BlocConsumer<MovieRetrieveBloc, MovieRetrieveState>(
       listener: (context, state) {
+        
         if (state is MovieRetrieveErrorState) {
           ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(
             content: Text(state.message)
           ));
+          context.pop();
         }
-        context.pop();
       },
       builder: (context, state) {
         switch(state) {
@@ -61,23 +63,12 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                 children: [
                   Text('Released in ${movie.year}'),
                   Text('Director: ${movie.directorname}'),
-                  Text('Logline: ${movie.logline}'),
-                  
+                  Text('Logline: ${movie.logline}'), 
                 ],
-              )
-         
-                
-              
-            );
-           
+              )  
+            );  
         }
       },
-    );
-    
-    
-    
-    
-    
-    
+    );      
   }
 }

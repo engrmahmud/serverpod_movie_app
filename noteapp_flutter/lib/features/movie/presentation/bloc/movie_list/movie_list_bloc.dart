@@ -11,10 +11,9 @@ class MovieListBloc extends Bloc<MovieListEvents, MovieListState> {
   
   final ListMoviesUsecase listMovies;
   
-  MovieListBloc(ListMoviesUsecase listMoviesUsecase, {required this.listMovies}) : super(MovieListInitialState()) {
+  MovieListBloc({required this.listMovies}) : super(MovieListInitialState()) {
     on<MovieListEvents>((_, emit) => emit(MovieListLoadingState()));
     on<FetchMoviesEvent>(_onFetchMovie );
-
 
 }
 
