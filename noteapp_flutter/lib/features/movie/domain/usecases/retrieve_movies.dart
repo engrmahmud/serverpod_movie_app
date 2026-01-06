@@ -3,7 +3,7 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:noteapp_client/noteapp_client.dart';
 import 'package:noteapp_flutter/core/error/failure.dart';
-import 'package:noteapp_flutter/core/error/usecases/usecase.dart';
+import 'package:noteapp_flutter/core/usecases/usecase.dart';
 import 'package:noteapp_flutter/features/movie/domain/repositories/movie_repository.dart';
 
 class RetrieveMovieUsecase implements Usecase<Movie, RetrieveMovieParams>{

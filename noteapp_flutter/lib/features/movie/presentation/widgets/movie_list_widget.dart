@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:noteapp_flutter/core/widgets/loader.dart';
 import 'package:noteapp_flutter/features/movie/presentation/bloc/movie_list/movie_list_bloc.dart';
+import 'package:noteapp_flutter/features/movie/presentation/bloc/movie_list/movie_list_event.dart';
 import 'package:noteapp_flutter/features/movie/presentation/bloc/movie_list/movie_list_state.dart';
 
 class MovieListWidget extends StatefulWidget {
@@ -14,6 +16,8 @@ class _MovieListWidgetState extends State<MovieListWidget> {
   @override
   void initState() {
     super.initState();
+
+    context.read<MovieListBloc>().add(FetchMoviesEvent());
   }
 
   @override
@@ -21,21 +25,41 @@ class _MovieListWidgetState extends State<MovieListWidget> {
     super.dispose();
   }
 
-  @override
+  @override 
   Widget build(BuildContext context) {
     return BlocBuilder<MovieListBloc, MovieListState>(
       builder: (context, state) {
-        return ListView.builder(
-          itemCount: 10,
-          itemBuilder: (context, index) {
-            return Card(
-              child: ListTile(
-                title: Text('Movie'),
-              ),
+        
+        switch (state) {
+          case MovieListInitialState():
+          return const SizedBox.shrink();
+          case MovieListLoadingState():
+            return Loader();
+          case MovieListSuccessState():
+            final movies = state.movies;
+            
+            return ListView.builder(
+              itemCount: movies.length,
+              itemBuilder: (context, index) {
+                final movie = movies[index];
+                return Card(
+                  child: ListTile(
+                    title: Text(movie.title),
+                    subtitle: Text('Released in ${movie.year}'),
+                  ),
+                );
+              },
             );
-          },
-        );
-      },
+          case MovieListErrorState():
+            return Center(
+              child: Text(state.message),
+            );
+        }
+        
+      }
+      
     );
   }
 }
+
+

@@ -1,5 +1,5 @@
 
-
+import 'dart:io';
 import 'package:get_it/get_it.dart';
 import 'package:noteapp_client/noteapp_client.dart';
 import 'package:noteapp_flutter/features/movie/data/datasources/movie_datasources.dart';
@@ -11,14 +11,23 @@ import 'package:serverpod_flutter/serverpod_flutter.dart';
 
 final serviceLocator = GetIt.instance;
 
+String _resolveServerUrl() {
+  if (Platform.isAndroid) {
+    // Android Emulator → host machine
+    return 'http://10.0.2.2:8080/';
+  } else {
+    // Chrome, Windows, macOS, Linux, iOS Simulator
+    return 'http://localhost:8080/';
+  }
+}
+
 Future<void> initDependencies() async {
 
-
-
-
   serviceLocator.registerLazySingleton<Client>(
-    () => Client("http://localhost:8080")..connectivityMonitor = FlutterConnectivityMonitor(),
-  );
+  () => Client(_resolveServerUrl())
+    ..connectivityMonitor = FlutterConnectivityMonitor(),
+);
+
 
   
   _initMovie();
@@ -51,8 +60,6 @@ Future<void> initDependencies() async {
 
     //Bloc
     serviceLocator.registerLazySingleton(
-      () => MovieListBloc( 
-        serviceLocator<ListMoviesUsecase>()));
+      () => MovieListBloc(serviceLocator<ListMoviesUsecase>(),
+        listMovies: serviceLocator<ListMoviesUsecase>()));
   }
-
-

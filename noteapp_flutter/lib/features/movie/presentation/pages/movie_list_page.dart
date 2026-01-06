@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:noteapp_flutter/features/movie/presentation/widgets/movie_list_widget.dart';
 
 class MovieListPage extends StatelessWidget {
+
+  static String route() => '/movies';
+
+
   const MovieListPage({super.key});
 
   @override
@@ -11,7 +15,7 @@ class MovieListPage extends StatelessWidget {
         title: Center(
           child: const Text('Movies')),
       ),
-      body: MovieListWidget(),
+      body: const MovieListWidget(),
     );
     
   }

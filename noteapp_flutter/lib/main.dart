@@ -3,6 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:noteapp_flutter/core/router/app_router.dart';
 import 'package:noteapp_flutter/dependencies.dart';
 import 'package:noteapp_flutter/features/movie/presentation/bloc/movie_list/movie_list_bloc.dart';
 import 'package:noteapp_flutter/features/movie/presentation/pages/movie_list_page.dart';
@@ -29,11 +30,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'Serverpod Demo',
       theme: ThemeData.dark(),
-      home: MovieListPage(),
+      routerConfig: Approuter.router,
     );
   }
 }
